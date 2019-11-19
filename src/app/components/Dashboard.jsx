@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { ConnectedTasks } from "./Tasks";
-import { STATUS_CODES } from "http";
 
-export const HomePage = ({ status }) => {
+
+export const Dashboard = ({ status }) => {
   return (
     <div>
       <h2>My Dashboard</h2>
@@ -19,4 +19,4 @@ function mapStateToProps(state) {
   };
 }
 
-export const ConnectedDashboard = connect(mapStateToProps)(HomePage);
+export const ConnectedDashboard = connect(mapStateToProps)(Dashboard);

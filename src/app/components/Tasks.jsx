@@ -1,25 +1,41 @@
 import React from "react";
 import { connect } from "react-redux";
-import { HomePage } from "./HomePage";
+import { requestTaskCreation } from "../store/mutations";
+import { Link } from "react-router-dom";
 
-export const Tasks = ({ tasks, name }) => (
+export const Tasks = ({ tasks, name, id, addNewTask }) => (
   <div>
     <div>
       <h3>{name}</h3>
       {tasks.map(t => (
-        <div>{t.name}</div>
+        <Link to={`/tasks/${t.id}`} key={t.id}>
+          {" "}
+          <div>{t.name}</div>
+        </Link>
       ))}
     </div>
+    <button onClick={() => addNewTask(id)}>New Tasks</button>
   </div>
 );
-const mapStateToProps = (state, taskProps) => {
-  let statusID = taskProps.id;
+const mapStateToProps = (state, ownProps) => {
+  let statusID = ownProps.id;
   return {
-    name: taskProps.name,
+    name: ownProps.name,
     id: statusID,
     tasks: state.tasks.filter(task => task.status === statusID),
-    category: taskProps.category
+    category: ownProps.category
+  };
+};
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    addNewTask(id) {
+      console.log("New task addition in progress on ...", id);
+      dispatch(requestTaskCreation(id));
+    }
   };
 };
 
-export const ConnectedTasks = connect(mapStateToProps)(Tasks);
+export const ConnectedTasks = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Tasks);

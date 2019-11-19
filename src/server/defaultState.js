@@ -60,7 +60,7 @@ export const defaultState = {
       id: "T03",
       owner: "U02",
       status: "S02",
-      category: "G03"
+      category: "G02"
     },
     {
       name: "Order Drinks",
