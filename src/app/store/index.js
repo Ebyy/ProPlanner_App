@@ -4,11 +4,19 @@ import { createLogger } from "redux-logger";
 import createSagaMiddleware from "redux-saga";
 
 const sagaMiddleware = createSagaMiddleware();
-import * as sagas from "./sagas.mock";
+//import * as sagas from "./sagas.mock";
+import * as sagas from "./sagas";
 import * as mutations from "./mutations";
 
 export const store = createStore(
   combineReducers({
+    session(session = defaultState.session ||{}, action) {
+      let {type, authenticated, session} = action;
+      switch(type){
+        case mutat
+      }
+      return session;
+    },
     tasks(tasks = defaultState.tasks, action) {
       switch (action.type) {
         case mutations.CREATE_TASK:
@@ -17,7 +25,7 @@ export const store = createStore(
             ...tasks,
             {
               id: action.taskID,
-              name: "New Task ",
+              name: "New Task",
               status: action.statusID,
               owner: action.ownerID,
               category: action.categoryID

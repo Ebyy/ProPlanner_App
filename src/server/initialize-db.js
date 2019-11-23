@@ -3,9 +3,12 @@ import { connectDB } from "./connect-db";
 
 async function initializeDB() {
   let db = await connectDB();
-  for (let collectionName in defaultState) {
-    let collection = db.collection(collectionName);
-    await collection.insertMany(defaultState[collectionName]);
+  let user = await db.collection(`organizers`).findOne({ id: "U01" });
+  if (!user) {
+    for (let collectionName in defaultState) {
+      let collection = db.collection(collectionName);
+      await collection.insertMany(defaultState[collectionName]);
+    }
   }
 }
 

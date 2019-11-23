@@ -2,8 +2,9 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import { connectDB } from "./connect-db";
+import "./initialize-db";
 
-let port = 7777;
+let port = 8888;
 let app = express();
 app.listen(port, console.log("Server listening on port", port));
 app.use(cors(), bodyParser.urlencoded({ extended: true }), bodyParser.json());
@@ -19,29 +20,41 @@ export const updateTask = async task => {
   let db = await connectDB();
   let collection = db.collection(`tasks`);
   if (status) {
-    await collection.updateOne({ id }, { $set: { status } }, (err, result) => {
+    await collection.updateOne(
+      { id },
+      {
+        $set: { status }
+      } /*, (err, result) => {
       if (err) res.send(err);
       if (result) {
         console.log("updated task status");
       } else {
         console.log("ID not found! Failed to update task status");
       }
-    });
+    }*/
+    );
   }
   if (name) {
-    await collection.updateOne({ id }, { $set: { name } }, (err, result) => {
+    await collection.updateOne(
+      { id },
+      {
+        $set: { name }
+      } /*, (err, result) => {
       if (err) res.send(err);
       if (result) {
         console.log("updated task name ");
       } else {
         console.log("ID not found! Failed to update task name");
       }
-    });
+    }*/
+    );
   }
   if (category) {
     await collection.updateOne(
       { id },
-      { $set: { category } },
+      {
+        $set: { category }
+      } /*,
       (err, result) => {
         if (err) res.send(err);
         if (result) {
@@ -50,6 +63,7 @@ export const updateTask = async task => {
           console.log("ID not found! Failed to update task category");
         }
       }
+    */
     );
   }
 };

@@ -7,12 +7,13 @@ export const Tasks = ({ tasks, name, id, addNewTask }) => (
   <div>
     <div>
       <h3>{name}</h3>
-      {tasks.map(t => (
-        <Link to={`/tasks/${t.id}`} key={t.id}>
-          {" "}
-          <div>{t.name}</div>
-        </Link>
-      ))}
+      <div>
+        {tasks.map(t => (
+          <Link to={`/tasks/${t.id}`} key={t.id}>
+            <div> {t.name}</div>
+          </Link>
+        ))}
+      </div>
     </div>
     <button onClick={() => addNewTask(id)}>New Tasks</button>
   </div>

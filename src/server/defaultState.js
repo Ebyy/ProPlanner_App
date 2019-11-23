@@ -1,16 +1,24 @@
+import md5 from "md5";
 export const defaultState = {
+  // session: {
+  //   authenticated: false
+  // },
+
   organizers: [
     {
       id: "U01",
-      name: "Danny S."
+      name: "Danny S.",
+      passwordHash: md5("123jx0.")
     },
     {
       id: "U02",
-      name: "Sade R."
+      name: "Sade R.",
+      passwordHash: md5("456htm;;")
     },
     {
       id: "U03",
-      name: "Ebere O."
+      name: "Ebere O.",
+      passwordHash: md5("ullysal")
     }
   ],
   category: [
