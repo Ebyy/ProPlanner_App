@@ -27,13 +27,12 @@ export const Main = () => {
           <ConnectedNavBar />
           {/*<ConnectedDashboard /> */}
           <Route exact path="/" component={ConnectedLogin} />
-          <Route
+          <Route exact
             path="/dashboard"
-            exact
             //render={() => <ConnectedDashboard />}
             render={RouteGuard(ConnectedDashboard)}
           />
-          <Route path="/tasks/:id" exact render={RouteGuard(ConnectedTask)} />
+          <Route exact path="/tasks/:id" exact render={RouteGuard(ConnectedTask)} />
         </div>
       </Provider>
     </Router>
