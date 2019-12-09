@@ -2,13 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { ConnectedTasks } from "./Tasks";
 
-
 export const Dashboard = ({ status }) => {
   return (
-    <div>
-      <h2>My Dashboard</h2>
+    <div className="row">
       {status.map(s => (
-        <ConnectedTasks id={s.id} name={s.name} key={s.id} />
+        <ConnectedTasks id={s.id} name={s.name} key={s.id} className="col" />
       ))}
     </div>
   );
