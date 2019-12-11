@@ -9,7 +9,8 @@ export const AUTHENTICATING = `AUTHENTICATING`;
 export const AUTHENTICATED = `AUTHENTICATED`;
 export const NOT_AUTHENTICATED = `NOT_AUTHENTICATED`;
 export const SET_STATE = `SET_STATE`;
-
+export const CREATE_USER = `CREATE_USER`;
+export const USERNAME_EXISTS = `USERNAME_EXISTS`;
 export const requestTaskCreation = statusID => ({
   type: REQUEST_TASK_CREATION,
   statusID
@@ -56,7 +57,13 @@ export const ProcessAuthenticateUser = (
   authenticated: status
 });
 
-export const setState = (state = {})=>({
-  type:SET_STATE,
+export const setState = (state = {}) => ({
+  type: SET_STATE,
   state
+});
+
+export const requestCreateUser = (username, password) => ({
+  type: CREATE_USER,
+  username,
+  password
 });

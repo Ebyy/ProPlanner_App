@@ -62,8 +62,33 @@ export function* userAuthenticationSaga() {
       yield put(mutations.ProcessAuthenticateUser(mutations.AUTHENTICATED));
       history.push("/dashboard");
     } catch (e) {
-      console.log("cant authenticate");
+      console.log("Authentication failed: ", e);
       yield put(mutations.ProcessAuthenticateUser(mutations.NOT_AUTHENTICATED));
+    }
+  }
+}
+
+export function* userCreationSaga() {
+  while (true) {
+    const { username, password } = yield take(mutations.CREATE_USER);
+    try {
+      const { data } = yield axios.post(url + `/users/create-new`, {
+        username,
+        password
+      });
+      if (!data) {
+        throw new Error();
+      }
+      console.log(data);
+      yield put(
+        mutations.setState({ ...data.state, session: { id: data.userID } })
+      );
+      yield put(mutations.ProcessAuthenticateUser(mutations.AUTHENTICATED));
+
+      history.push("/dashboard");
+    } catch (err) {
+      console.log("Error occurred: ", err);
+      yield put(mutations.ProcessAuthenticateUser(mutations.USERNAME_EXISTS));
     }
   }
 }

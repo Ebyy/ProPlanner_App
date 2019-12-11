@@ -69,7 +69,11 @@ export const store = createStore(
       }
       return status;
     },
-    organizers(organizers = []) {
+    organizers(organizers = [], action) {
+      switch (action.type){
+        case mutations.SET_STATE:
+          return action.state.status;
+      }
       return organizers;
     },
     category(category = []) {
