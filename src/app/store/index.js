@@ -4,7 +4,7 @@ import { createLogger } from "redux-logger";
 import createSagaMiddleware from "redux-saga";
 
 const sagaMiddleware = createSagaMiddleware();
-//import * as sagas from "./sagas.mock";
+
 import * as sagas from "./sagas";
 import * as mutations from "./mutations";
 
@@ -14,7 +14,7 @@ export const store = createStore(
       let { type, authenticated, session } = action;
       switch (type) {
         case mutations.SET_STATE:
-          return {...userSession, id:action.state.session.id}
+          return { ...userSession, id: action.state.session.id };
         case mutations.REQUEST_AUTHENTICATE_USER:
           return { ...userSession, authenticated: mutations.AUTHENTICATING };
         case mutations.PROCESSING_AUTHENTICATE_USER:
@@ -63,14 +63,14 @@ export const store = createStore(
       return comments;
     },
     status(status = [], action) {
-      switch(action.type){
+      switch (action.type) {
         case mutations.SET_STATE:
           return action.state.status;
       }
       return status;
     },
     organizers(organizers = [], action) {
-      switch (action.type){
+      switch (action.type) {
         case mutations.SET_STATE:
           return action.state.status;
       }

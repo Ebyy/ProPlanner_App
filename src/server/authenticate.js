@@ -4,6 +4,7 @@ import { connectDB } from "./connect-db";
 
 const authenticationTokens = [];
 
+//set up state for saga to use
 async function assembleUserState(user) {
   let db = await connectDB();
 
@@ -17,16 +18,14 @@ async function assembleUserState(user) {
     .find({ owner: user.id })
     .toArray();
 
-
-
   return {
     tasks,
     status,
-    organizers,
     session: { authenticated: `AUTHENTICATED`, id: user.id }
   };
 }
 
+//authenticate user login details
 export const authenticationRoute = app => {
   app.post("/authenticate", async (req, res) => {
     let { username, password } = req.body;
@@ -54,6 +53,7 @@ export const authenticationRoute = app => {
     res.send({ token, state });
   });
 
+  //sign up user and set up dashboard
   app.post("/users/create-new", async (req, res) => {
     try {
       let { username, password } = req.body;
@@ -65,6 +65,7 @@ export const authenticationRoute = app => {
       }
       let userID = uuid();
       let statusID = uuid();
+      let taskID = uuid();
 
       await collection.insertOne({
         id: userID,
@@ -72,10 +73,18 @@ export const authenticationRoute = app => {
         passwordHash: md5(password)
       });
 
-      //create task for new user
-      await collection.insertOne({
+      //create task and status for new user
+      await db.collection(`status`).insertOne({
         name: `To-Do`,
         id: statusID,
+        owner: userID
+      });
+      await db.collection(`tasks`).insertOne({
+        name: "New Task",
+        category: "G01",
+        id: taskID,
+        owner: userID,
+        status: statusID,
         owner: userID
       });
 

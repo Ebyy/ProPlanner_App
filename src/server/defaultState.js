@@ -7,18 +7,8 @@ export const defaultState = {
   organizers: [
     {
       id: "U01",
-      name: "Danny S.",
-      passwordHash: md5("123jx0.")
-    },
-    {
-      id: "U02",
-      name: "Sade R.",
-      passwordHash: md5("456htm;;")
-    },
-    {
-      id: "U03",
-      name: "Ebere O.",
-      passwordHash: md5("ullysal")
+      name: "Danny",
+      passwordHash: md5("123j")
     }
   ],
   category: [
@@ -66,21 +56,21 @@ export const defaultState = {
     {
       name: "Entertainment Bookings",
       id: "T03",
-      owner: "U02",
+      owner: "U01",
       status: "S02",
       category: "G02"
     },
     {
       name: "Order Drinks",
       id: "T04",
-      owner: "U03",
+      owner: "U01",
       status: "S03",
       category: "G01"
     },
     {
       name: "Book Catering",
       id: "T05",
-      owner: "U03",
+      owner: "U01",
       status: "S02",
       category: "G01"
     },
@@ -94,7 +84,7 @@ export const defaultState = {
   ],
   comments: [
     {
-      owner: "U03",
+      owner: "U01",
       id: "C1",
       task: "T04",
       content: "Awaiting sign-off"

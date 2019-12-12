@@ -7,7 +7,7 @@ const Login = ({ authenticateUser, authenticated }) => (
   <div className="card p-3 col-4">
     <h2>Log in</h2>{" "}
     <p>
-      Don't have an account? 
+      Don't have an account?
       <Link to="register"> Sign up here.</Link>
     </p>
     <form onSubmit={authenticateUser}>
@@ -17,7 +17,7 @@ const Login = ({ authenticateUser, authenticated }) => (
           type="text"
           placeholder="username"
           name="username"
-          defaultValue="Danny S."
+          defaultValue="Danny"
           className="form-control"
         />
       </div>
@@ -29,7 +29,7 @@ const Login = ({ authenticateUser, authenticated }) => (
           type="password"
           placeholder="password"
           name="password"
-          defaultValue="123jx0."
+          defaultValue="123j"
           className="form-control"
         />
       </div>

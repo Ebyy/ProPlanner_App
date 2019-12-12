@@ -27,8 +27,8 @@ const SignUp = ({ createNewUser, authenticated }) => {
             className="form-control"
           />
         </div>
-        {authenticated == mutations.USERNAME_EXISTS ? (
-          <p>User already exists</p>
+        {authenticated === mutations.USERNAME_EXISTS ? (
+          <p>Account already exists. Please log in.</p>
         ) : null}
         <button type="submit" className="btn btn-primary mt-3">
           Sign Up
@@ -39,7 +39,7 @@ const SignUp = ({ createNewUser, authenticated }) => {
 };
 
 const mapStateToProps = state => ({
-  autenticated: state.session.authenticated
+  authenticated: state.session.authenticated
 });
 
 const mapDispatchToProps = dispatch => ({

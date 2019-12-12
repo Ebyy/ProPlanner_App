@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 const NavBar = () => (
   <div>
     <Link to="/dashboard">
-      <h3>Go to My Dashboard</h3>
+      <h3>Pro-planner App</h3>
     </Link>
+
   </div>
 );
 

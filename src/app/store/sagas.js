@@ -10,7 +10,7 @@ const url = "http://localhost:8888";
 export function* taskCreationSaga() {
   while (true) {
     const { statusID } = yield take(mutations.REQUEST_TASK_CREATION);
-    const ownerID = `U01`;
+    const ownerID = yield select(state => state.session.id);
     const taskID = uuid();
     const categoryID = `G01`;
     yield put(mutations.createTask(taskID, statusID, ownerID, categoryID));
@@ -57,9 +57,10 @@ export function* userAuthenticationSaga() {
       if (!data) {
         throw new Error();
       }
-      console.log("Authenticated", data);
+
       yield put(mutations.setState(data.state));
       yield put(mutations.ProcessAuthenticateUser(mutations.AUTHENTICATED));
+
       history.push("/dashboard");
     } catch (e) {
       console.log("Authentication failed: ", e);
@@ -76,10 +77,6 @@ export function* userCreationSaga() {
         username,
         password
       });
-      if (!data) {
-        throw new Error();
-      }
-      console.log(data);
       yield put(
         mutations.setState({ ...data.state, session: { id: data.userID } })
       );
