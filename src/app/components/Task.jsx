@@ -11,22 +11,26 @@ const Task = ({
   status,
   category,
   checkedStatus,
+  progressBar,
 
   setTaskCategory,
   setTaskStatus,
   setTaskName
 }) => {
+  
   const handleRadioButton = e => (task.category = e.target.value);
+
   return (
-    <div>
+    <div className=" card p-3 col-6">
       <div>
-        <input value={task.name} onChange={setTaskName} />
-      </div>
-      <div>
-        <button>Edit Task</button>
+        <input
+          value={task.name}
+          onChange={setTaskName}
+          className="form-control form-control-md"
+        />
       </div>
 
-      <div onChange={setTaskCategory}>
+      <div onChange={setTaskCategory} className="mt-3">
         <FontAwesomeIcon icon="home" />
         Inhouse{" "}
         <input
@@ -46,7 +50,11 @@ const Task = ({
       </div>
 
       <div>
-        <select onChange={setTaskStatus} value={task.status}>
+        <select
+          onChange={setTaskStatus}
+          value={task.status}
+          className="form-control mt-3"
+        >
           {status.map(stat => (
             <option key={stat.id} value={stat.id}>
               {stat.name}
@@ -57,7 +65,7 @@ const Task = ({
 
       <div>
         <Link to="/dashboard">
-          <button>Done</button>
+          <button className="btn btn-primary mt-2">Done</button>
         </Link>
       </div>
     </div>
@@ -69,6 +77,7 @@ const mapStateToProps = (state, ownProps) => {
   let task = state.tasks.find(task => task.id === id);
   let status = state.status;
   let category = state.category;
+  //let progressBar = false;
   return {
     id,
     task,

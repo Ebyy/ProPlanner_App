@@ -66,6 +66,21 @@ export const store = createStore(
       switch (action.type) {
         case mutations.SET_STATE:
           return action.state.status;
+        case mutations.CREATE_STATUS:
+          return [
+            ...status,
+            {
+              name: "New Status",
+              id: action.statusID,
+              owner: action.ownerID
+            }
+          ];
+        case mutations.SET_STATUS_NAME:
+          return status.map(sItem => {
+            return sItem.id === action.statusID
+              ? { ...sItem, name: action.name }
+              : sItem;
+          });
       }
       return status;
     },

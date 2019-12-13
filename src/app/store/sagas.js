@@ -44,6 +44,33 @@ export function* taskModificationSaga() {
   }
 }
 
+export function* statusCreationSaga() {
+  while (true) {
+    const { ownerID } = yield take(mutations.REQUEST_STATUS_CREATION);
+    const statusID = uuid();
+    yield put(mutations.createNewStatusItem(statusID, ownerID));
+    const { res } = yield axios.post(url + `/status/new`, {
+      statusItem: {
+        name: "New Status",
+        id: statusID,
+        owner: ownerID
+      }
+    });
+  }
+}
+
+export function* statusModificationSaga() {
+  while (true) {
+    const statusItem = yield take([mutations.SET_STATUS_NAME]);
+    axios.post(url + `/status/update`, {
+      statusItem: {
+        id: statusItem.statusID,
+        name: statusItem.name
+      }
+    });
+  }
+}
+
 export function* userAuthenticationSaga() {
   while (true) {
     const { username, password } = yield take(

@@ -9,6 +9,7 @@ import { history } from "../store/history";
 import { ConnectedNavBar } from "./NavBar";
 import { ConnectedTask } from "./Task";
 import { Redirect } from "react-router";
+import { ConnectedStatusItem } from "./StatusItem";
 
 const RouteGuard = Component => ({ match }) => {
   console.info("Route guard", match);
@@ -29,12 +30,18 @@ export const Main = () => {
           {/*<ConnectedDashboard /> */}
           <Route exact path="/" component={ConnectedLogin} />
           <Route exact path="/register" component={ConnectedSignUp} />
-          <Route exact
+          <Route
+            exact
             path="/dashboard"
             //render={() => <ConnectedDashboard />}
             render={RouteGuard(ConnectedDashboard)}
           />
-          <Route exact path="/tasks/:id" exact render={RouteGuard(ConnectedTask)} />
+          <Route exact path="/tasks/:id" render={RouteGuard(ConnectedTask)} />
+          <Route
+            exact
+            path="/status/:id"
+            render={RouteGuard(ConnectedStatusItem)}
+          />
         </div>
       </Provider>
     </Router>

@@ -4,17 +4,19 @@ import { requestTaskCreation } from "../store/mutations";
 import { Link } from "react-router-dom";
 
 export const Tasks = ({ tasks, name, id, addNewTask }) => (
-  <div className="card p-2 m-2">
+  <div className="card p-3 m-2">
     <h3>{name}</h3>
     <div>
       {tasks.map(t => (
         <Link to={`/tasks/${t.id}`} key={t.id}>
-          <div> {t.name}</div>
+          <div className="card p-3 mt-2"> {t.name}</div>
         </Link>
       ))}
     </div>
 
-    <button onClick={() => addNewTask(id)} className="btn btn-primary mt-2">Add Task</button>
+    <button onClick={() => addNewTask(id)} className="btn btn-primary mt-2">
+      Add Task
+    </button>
   </div>
 );
 const mapStateToProps = (state, ownProps) => {
@@ -29,7 +31,6 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     addNewTask(id) {
-      console.log("New task addition in progress on ...", id);
       dispatch(requestTaskCreation(id));
     }
   };

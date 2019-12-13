@@ -11,6 +11,7 @@ app.listen(port, console.info("Server listening on port", port));
 app.use(cors(), bodyParser.urlencoded({ extended: true }), bodyParser.json());
 authenticationRoute(app);
 
+//TASKS HANDLERS
 export const addNewTask = async task => {
   let db = await connectDB();
   let collection = db.collection(`tasks`);
@@ -46,7 +47,7 @@ export const updateTask = async task => {
       (err, result) => {
         if (err) res.send(err);
         if (result) {
-          console.log("updated task name ");
+          console.log("updated task name");
         } else {
           console.log("ID not found! Failed to update task name");
         }
@@ -71,6 +72,32 @@ export const updateTask = async task => {
   }
 };
 
+//STATUS
+
+export const addNewStatus = async statusItem => {
+  let db = await connectDB();
+  let collection = db.collection(`status`);
+  await collection.insertOne(statusItem);
+};
+
+export const updateStatus = async statusItem => {
+  let { name, id } = statusItem;
+  let db = await connectDB();
+  let collection = db.collection(`status`);
+
+  if (name) {
+    await collection.updateOne({ id }, { $set: { name } }, (err, result) => {
+      if (err) res.send(err);
+      if (result) {
+        console.log("updated status name");
+      } else {
+        console.log("ID not found! Failed to update status name");
+      }
+    });
+  }
+};
+
+//ROUTE SET UP
 app.post("/tasks/new", async (req, res) => {
   let task = req.body.task;
   await addNewTask(task);
@@ -81,4 +108,16 @@ app.post("/tasks/update", async (req, res) => {
   let task = req.body.task;
   await updateTask(task);
   res.status(200).send();
+});
+
+app.post("/status/new", async (req, res) => {
+  let statusItem = req.body.statusItem;
+  await addNewStatus(statusItem);
+  res.status(200).send("added new status");
+});
+
+app.post("/status/update", async (req, res) => {
+  let statusItem = req.body.statusItem;
+  await updateStatus(statusItem);
+  res.status(200).send("updated status name");
 });
