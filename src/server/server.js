@@ -1,15 +1,28 @@
+//App url: proplanner-app.herokuapp.com
+import path from "path";
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
+
 import { connectDB } from "./connect-db";
 import "./initialize-db";
 import { authenticationRoute } from "./authenticate";
 
-let port = 8888;
+let port = process.env.PORT || 8888;
+
 let app = express();
-app.listen(port, console.info("Server listening on port", port));
+
 app.use(cors(), bodyParser.urlencoded({ extended: true }), bodyParser.json());
+app.listen(port, console.info("Server listening on port", port));
+
 authenticationRoute(app);
+
+if (process.env.NODE_ENV === `production`) {
+  app.use(express.static(path.resolve(__dirname, `../../dist`)));
+  app.get("/*", (req, res) => {
+    res.sendFile(path.resolve("index.html"));
+  });
+}
 
 //TASKS HANDLERS
 export const addNewTask = async task => {
